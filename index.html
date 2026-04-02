@@ -389,7 +389,7 @@
 
 <!-- NAV -->
 <nav>
-  <img src="profile.jpg" alt="YK" class="nav-logo">
+  <img src="" alt="YK" class="nav-logo" id="nav-logo" style="cursor:pointer">
   <ul class="nav-links">
     <li><a href="#about">소개</a></li>
     <li><a href="#research">연구</a></li>
@@ -783,6 +783,11 @@
     }
   }
   resize(); window.addEventListener('resize', resize);
+
+  // ── NAV LOGO ──
+  const navLogo = document.getElementById('nav-logo');
+  navLogo.src = document.querySelector('.hero-photo').src;
+  navLogo.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
   // ── EMAIL COPY ──
   document.getElementById('email-copy').addEventListener('click', function(e) {
