@@ -330,6 +330,16 @@
     }
     .contact-link:hover { border-color: var(--accent); color: var(--accent); }
 
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--accent); color: #fff; padding: 0.6rem 1.4rem;
+      border-radius: 999px; font-size: 0.85rem; font-weight: 600;
+      opacity: 0; pointer-events: none; z-index: 9999;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
     /* ─── FOOTER ─── */
     footer {
       text-align: center; padding: 2rem;
@@ -741,12 +751,14 @@
     <div class="contact-name">김예찬 · Yechan Kim</div>
     <div class="contact-org">한국표준과학연구원 · UST 통합과정 (KRISS스쿨)</div>
     <div class="contact-links">
-      <a href="mailto:yechan@kriss.re.kr" class="contact-link">
+      <a href="#" class="contact-link" id="email-copy" data-email="yechan@kriss.re.kr">
         📧 &nbsp; yechan@kriss.re.kr
       </a>
     </div>
   </div>
 </section>
+
+<div class="toast" id="toast">이메일 복사됨!</div>
 
 <footer>
   © 2026 Yechan Kim · Built with GitHub Pages
@@ -772,6 +784,30 @@
     }
   }
   resize(); window.addEventListener('resize', resize);
+
+  // ── EMAIL COPY ──
+  document.getElementById('email-copy').addEventListener('click', function(e) {
+    e.preventDefault();
+    const email = this.dataset.email;
+    const toast = document.getElementById('toast');
+    const showToast = () => {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(email).then(showToast).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = email; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta); showToast();
+      });
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = email; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta); showToast();
+    }
+  });
 
   // ── AFM state ──
   let afmX = 0, afmDir = 1, afmTrace = [];
