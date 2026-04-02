@@ -48,9 +48,8 @@
       height: 60px;
     }
     .nav-logo {
-      font-weight: 700; font-size: 1.1rem;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      width: 36px; height: 36px; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--accent);
     }
     .nav-links { display: flex; gap: 1.8rem; list-style: none; }
     .nav-links a {
@@ -390,7 +389,7 @@
 
 <!-- NAV -->
 <nav>
-  <span class="nav-logo">YK</span>
+  <img src="profile.jpg" alt="YK" class="nav-logo">
   <ul class="nav-links">
     <li><a href="#about">소개</a></li>
     <li><a href="#research">연구</a></li>
