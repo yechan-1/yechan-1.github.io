@@ -366,10 +366,11 @@
     @media (max-width: 640px) {
       .hero-inner { flex-direction: column; text-align: center; }
       .hero-name { font-size: 2.2rem; }
-      .hero-btns { justify-content: center; }
+      .hero-btns { justify-content: center; flex-wrap: nowrap; gap: 0.5rem; }
       .hero-tags { justify-content: center; }
       .affil-grid, .research-grid, .equip-grid, .seminar-grid { grid-template-columns: 1fr; }
       nav .nav-links { display: none; }
+      .btn { font-size: 0.75rem; padding: 0.5rem 0.8rem; white-space: nowrap; }
     }
   </style>
 </head>
@@ -417,7 +418,7 @@
       <div class="hero-btns fade-up delay-4">
         <a href="#research" class="btn btn-primary">연구 보기</a>
         <a href="#contact" class="btn btn-ghost">연락하기</a>
-        <a href="yechan_kim_cv.pdf" download="Yechan_Kim_CV.pdf" class="btn btn-ghost">📄 CV 다운로드</a>
+        <a href="Yechan_Kim_CV.pdf" download="Yechan_Kim_CV.pdf" class="btn btn-ghost">📄 CV 다운로드</a>
       </div>
     </div>
   </div>
@@ -760,7 +761,19 @@
   const ctx = canvas.getContext('2d');
   let W, H;
 
-  function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+  function resize() {
+    if (innerWidth < 640) {
+      W = canvas.width = 1200; H = canvas.height = 700;
+      const s = innerWidth / 1200;
+      canvas.style.width = '1200px'; canvas.style.height = '700px';
+      canvas.style.transformOrigin = 'top left';
+      canvas.style.transform = `scale(${s})`;
+    } else {
+      W = canvas.width = innerWidth; H = canvas.height = innerHeight;
+      canvas.style.width = ''; canvas.style.height = '';
+      canvas.style.transform = '';
+    }
+  }
   resize(); window.addEventListener('resize', resize);
 
   // ── AFM state ──
